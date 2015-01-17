@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+
+	<import resource="eu/anmore/emed/authentication/authentication-mappers.xml" />
+	<import resource="eu/anmore/emed/patient/patients-mappers.xml" />
+	<import resource="eu/anmore/emed/admission/admissions-mappers.xml" />
+	<import resource="eu/anmore/emed/observation/observations-mappers.xml" />
+
+</beans>

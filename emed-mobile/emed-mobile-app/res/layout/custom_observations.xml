@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <ProgressBar
+        android:id="@+id/custom_observations_progress"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center" />
+
+    <LinearLayout
+        android:id="@+id/custom_observations_panel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <ListView
+            android:id="@+id/custom_observations_existing"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+        </ListView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <EditText
+                android:id="@+id/custom_observations_key"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="@string/type_key" >
+
+                <requestFocus />
+            </EditText>
+
+            <EditText
+                android:id="@+id/custom_observations_visible_name"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="@string/type_visible" />
+
+            <Spinner
+                android:id="@+id/custom_observations_groups"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/custom_observations_add"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/dodaj" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

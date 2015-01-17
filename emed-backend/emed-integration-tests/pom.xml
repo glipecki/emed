@@ -1,0 +1,101 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>eu.anmore.emed</groupId>
+		<artifactId>emed-backend</artifactId>
+		<version>0.2.0-SNAPSHOT</version>
+	</parent>
+	<artifactId>emed-integration-tests</artifactId>
+
+	<properties>
+		<skipTests>false</skipTests>
+		<webClassifier>classes</webClassifier>
+	</properties>
+
+	<dependencies>
+		<!-- emed -->
+		<dependency>
+			<groupId>eu.anmore.emed</groupId>
+			<artifactId>emed-api</artifactId>
+			<version>${emed.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>eu.anmore.emed.web</groupId>
+			<artifactId>emed-rest-api</artifactId>
+			<version>${emed.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>eu.anmore.emed</groupId>
+			<artifactId>emed-rest-connector</artifactId>
+			<version>${emed.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>eu.anmore.emed.web.rest</groupId>
+			<artifactId>emed-rest</artifactId>
+			<version>${emed.version}</version>
+			<classifier>${webClassifier}</classifier>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>${servlet.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- spring test -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test-mvc</artifactId>
+			<version>1.0.0.M2</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-asm</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<!-- spring rest template -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.12.2</version>
+				<configuration>
+					<skipTests>${skipTests}</skipTests>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<profiles>
+		<profile>
+			<id>skipIntegrationTests</id>
+			<properties>
+				<skipTests>true</skipTests>
+			</properties>
+		</profile>
+		<profile>
+			<id>m2e</id>
+			<activation>
+				<property>
+					<name>m2e.version</name>
+				</property>
+			</activation>
+			<properties>
+				<webClassifier></webClassifier>
+			</properties>
+		</profile>
+	</profiles>
+
+</project>

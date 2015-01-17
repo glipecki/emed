@@ -1,0 +1,1 @@
+delete from observations_groups;

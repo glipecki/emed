@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="eu.anmore.emed.observation.ObservationsMapper">
+
+	<resultMap id="resultObservation" type="eu.anmore.emed.observation.ObservationEntity"
+		autoMapping="true">
+		<result column="obseravtion_id" property="id" />
+		<result column="username" property="observerUsername" />
+		<result column="batch_id" property="batchId" />
+		<result column="group_key" property="groupKey"></result>
+	</resultMap>
+	
+	<resultMap id="resultCustomObservationType" type="eu.anmore.emed.observation.CustomObservationTypeEntity"
+		autoMapping="true">
+		<result column="type" property="key" />
+		<result column="visible_name" property="visibleName" />
+		<result column="group_key" property="observationGroup" />
+	</resultMap>
+	
+	<resultMap id="resultNorm" type="eu.anmore.emed.observation.ObservationNormEntity"
+		autoMapping="true">
+		<result column="observation_type" property="observationType" />
+		<result column="days_from" property="daysFrom" />
+		<result column="days_to" property="daysTo" />
+		<result column="min_norm" property="minNorm" />
+		<result column="max_norm" property="maxNorm" />
+		<result column="min_alarm" property="minAlarm" />
+		<result column="max_alarm" property="maxAlarm" />
+	</resultMap>
+	
+	<resultMap id="observationAdmission" type="eu.anmore.emed.observation.AdmissionObservationType"
+		autoMapping="true">
+		<result column="admission_id" property="admissionId" />
+		<result column="type" property="typeKey" />
+	</resultMap>
+
+	<insert id="insert" parameterType="eu.anmore.emed.observation.ObservationEntity"
+		useGeneratedKeys="true" keyProperty="id" keyColumn="observation_id">
+
+		insert into
+		observations (patient_id, value, type, date, timestamp, observer, admission_id, batch_id)
+		values
+			(
+			 #{patientId}, 
+			 #{value},
+			 #{type},
+			 #{date}, 
+			 #{timestamp},
+			 (select user_id from users where username = #{observerUsername}),
+			 (select max(admission_id) from admissions where patient_id = #{patientId}),
+			 #{batchId}
+			)
+
+	</insert>
+	
+	<select id="getObservationNextBatchId" resultType="int">
+	    select nextval('observations_batch_id_seq');
+	</select>
+
+	<select id="getObservations" resultMap="resultObservation"
+		parameterType="eu.anmore.emed.observation.ObservationsQuery">
+
+		select
+			o.observation_id, o.patient_id, o.value, o.type, o.date, o.timestamp, u.username, o.batch_id, og.group_key
+		
+		from
+			observations o
+			join
+				users u
+				on
+				o.observer = u.user_id
+			left join
+				observations_groups og
+				on
+				o.type = og.type
+		
+		where
+				o.patient_id = #{patientId}
+			and
+				o.admission_id = (select max(admission_id) from admissions where patient_id = #{patientId} and discharge_date is null)
+				
+			<if test="groupKey != null">
+				and
+				og.group_key = #{groupKey}
+			</if>
+			
+			<if test="observationTypes != null">
+			  	and
+			  	o.type in
+				    <foreach item="item" index="index" collection="observationTypes" open="(" separator="," close=")">
+				    #{item}
+				  	</foreach>
+			</if>
+			
+			<if test="type != null">
+				and
+				og.group_key = #{type}
+			</if>
+	
+			<if test="day != null">
+				and date_part('day', o.date) = #{day}
+				and date_part('month', o.date) = #{month}
+				and date_part('year', o.date) = #{year}
+			</if>
+		
+	</select>
+	
+	<insert id="insertNorm" parameterType="eu.anmore.emed.observation.ObservationNormEntity">
+		insert into
+		observation_norm (observation_type, days_from, days_to, min_norm, max_norm, min_alarm, max_alarm)
+		values
+			(
+			 #{observationType}, 
+			 #{daysFrom},
+			 #{daysTo},
+			 #{minNorm},
+			 #{maxNorm}, 
+			 #{minAlarm},
+			 #{maxAlarm}
+			)
+	</insert>
+	
+	<select id="getObservationNorms" resultMap="resultNorm">
+		select * from observation_norm
+	</select>
+	
+	<select id="getCustomObservationTypes" resultMap="resultCustomObservationType">
+		select * from observations_groups
+	</select>
+	
+	<insert id="insertCustomObservationType"  parameterType="eu.anmore.emed.observation.CustomObservationTypeEntity">
+		insert into observations_groups (group_key, type, visible_name)
+			values (#{observationGroup}, #{key}, #{visibleName})
+	</insert>
+	
+	<select id="getAdmissionObservation" resultMap="observationAdmission">
+		select * from admission_observation where admission_id = (select max(admission_id) from admissions where patient_id = #{patientId} and discharge_date is null)
+	</select>
+	
+	<select id="getCurrentAdmissionId" parameterType="int" resultType="int">
+	    select max(admission_id) from admissions where patient_id = #{patientId} and discharge_date is null
+	</select>
+	
+	<delete id="clearAdmissionTypes" parameterType="int">
+	    delete from admission_observation where admission_id = #{int}
+	</delete>
+	
+	<insert id="addAdmissionType" parameterType="eu.anmore.emed.observation.AdmissionObservationType">
+	    insert into admission_observation (admission_id, type)
+	    	values (#{admissionId}, #{typeKey})
+	</insert>
+	
+</mapper>

@@ -1,0 +1,627 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/grouped_table_tab_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <ProgressBar
+        android:id="@+id/fluid_balance_progress"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:id="@+id/fluid_balance_panel"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="visible" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/balance_head_bg"
+            android:orientation="horizontal"
+            android:visibility="visible" >
+
+            <TextView
+                android:id="@+id/custom_observation_type_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="@dimen/table_head_padding_right"
+                android:text="Bilans całkowity"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/table_grouped_day_bilans"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:paddingRight="@dimen/table_head_padding_right" />
+
+            <TextView
+                android:id="@+id/fluid_balance_balance_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:paddingRight="@dimen/table_head_padding_right"
+                android:textStyle="bold" />
+
+            <CheckBox
+                android:id="@+id/fluid_balance_total_balance_details"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="false"
+                android:text="@string/details" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/fluid_balance_balance_details_panel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/balance_head_bg"
+            android:orientation="vertical"
+            android:visibility="gone" >
+
+            <View
+                android:id="@+id/separator"
+                android:layout_width="match_parent"
+                android:layout_height="1dip"
+                android:layout_alignParentTop="true"
+                android:layout_centerVertical="true"
+                android:background="@color/separator_color"
+                android:padding="@dimen/default_view_padding" />
+
+            <LinearLayout
+                android:id="@+id/grouped_table_koloidy_panel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/custom_observation_type_group_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Bilans koloidów"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:paddingRight="@dimen/table_head_padding_right" />
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/table_grouped_day_bilans"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:paddingRight="@dimen/table_head_padding_right" />
+
+                <TextView
+                    android:id="@+id/fluid_balance_balance_koloidy_group"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Medium Text"
+                    android:textAppearance="?android:attr/textAppearanceMedium" 
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/separator"
+                android:layout_width="match_parent"
+                android:layout_height="1dip"
+                android:layout_alignParentTop="true"
+                android:layout_centerVertical="true"
+                android:background="@color/separator_color"
+                android:padding="@dimen/default_view_padding" />
+
+            <LinearLayout
+                android:id="@+id/grouped_table_krystaloidy_panel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Bilans krystaloidów"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:paddingRight="@dimen/table_head_padding_right" />
+
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/table_grouped_day_bilans"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:paddingRight="@dimen/table_head_padding_right" />
+
+                <TextView
+                    android:id="@+id/fluid_balance_balance_krystaloidy_group"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Medium Text"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:id="@+id/separator"
+            android:layout_width="match_parent"
+            android:layout_height="1dip"
+            android:layout_alignParentTop="true"
+            android:layout_centerVertical="true"
+            android:background="@color/separator_color"
+            android:padding="@dimen/default_view_padding" />
+
+        <eu.anmore.utils.CustomScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <LinearLayout
+                android:id="@+id/fluid_balance_observation_groups_panel"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:id="@+id/grouped_table_koloidy_panel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" >
+
+                        <TextView
+                            android:id="@+id/textView7"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/koloidy"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:paddingRight="@dimen/table_head_padding_right" />
+
+                        <TextView
+                            android:id="@+id/textView15"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/table_grouped_day_bilans"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:paddingRight="@dimen/table_head_padding_right" />
+
+                        <TextView
+                            android:id="@+id/fluid_balance_balance_koloidy"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingRight="@dimen/table_head_padding_right"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textStyle="bold" />
+
+                        <CheckBox
+                            android:id="@+id/details_koloidy"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="true"
+                            android:text="@string/details" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/koloidy_observations"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal" >
+                    </LinearLayout>
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/separator"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dip"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerVertical="true"
+                    android:background="@color/separator_color"
+                    android:padding="@dimen/default_view_padding" />
+
+                <LinearLayout
+                    android:id="@+id/grouped_table_drenaz_panel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" >
+
+                        <TextView
+                            android:id="@+id/textView8"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/drenaz"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:paddingRight="@dimen/table_head_padding_right" />
+
+                        <TextView
+                            android:id="@+id/textView16"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/table_grouped_day_bilans"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:paddingRight="@dimen/table_head_padding_right" />
+
+                        <TextView
+                            android:id="@+id/fluid_balance_balance_drenaz"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:paddingRight="@dimen/table_head_padding_right"
+                            android:textStyle="bold" />
+
+                        <CheckBox
+                            android:id="@+id/details_drenaz"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="true"
+                            android:text="@string/details" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/drenaz_observations"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal" >
+                    </LinearLayout>
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/separator"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dip"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerVertical="true"
+                    android:background="@color/separator_color"
+                    android:padding="@dimen/default_view_padding" />
+
+                <LinearLayout
+                    android:id="@+id/grouped_table_diureza_panel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" >
+
+                        <TextView
+                            android:id="@+id/textView9"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/diureza"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:paddingRight="@dimen/table_head_padding_right" />
+
+                        <TextView
+                            android:id="@+id/textView17"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/table_grouped_day_bilans"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:paddingRight="@dimen/table_head_padding_right" />
+
+                        <TextView
+                            android:id="@+id/fluid_balance_balance_diureza"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:paddingRight="@dimen/table_head_padding_right"
+                            android:textStyle="bold" />
+
+                        <CheckBox
+                            android:id="@+id/details_diureza"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="true"
+                            android:text="@string/details" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/diureza_observations"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal" >
+                    </LinearLayout>
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/separator"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dip"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerVertical="true"
+                    android:background="@color/separator_color"
+                    android:padding="@dimen/default_view_padding" />
+
+                <LinearLayout
+                    android:id="@+id/grouped_table_sonda_in_panel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" >
+
+                        <TextView
+                            android:id="@+id/textView10"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/sonda_in"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:paddingRight="@dimen/table_head_padding_right" />
+
+                        <TextView
+                            android:id="@+id/textView18"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/table_grouped_day_bilans"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:paddingRight="@dimen/table_head_padding_right" />
+
+                        <TextView
+                            android:id="@+id/fluid_balance_balance_sonda_in"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:paddingRight="@dimen/table_head_padding_right"
+                            android:textStyle="bold" />
+
+                        <CheckBox
+                            android:id="@+id/details_sonda_in"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="true"
+                            android:text="@string/details" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/sonda_in_observations"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal" >
+                    </LinearLayout>
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/separator"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dip"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerVertical="true"
+                    android:background="@color/separator_color"
+                    android:padding="@dimen/default_view_padding" />
+
+                <LinearLayout
+                    android:id="@+id/grouped_table_sonda_out_panel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" >
+
+                        <TextView
+                            android:id="@+id/textView13"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/sonda_out"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:paddingRight="@dimen/table_head_padding_right" />
+
+                        <TextView
+                            android:id="@+id/textView19"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/table_grouped_day_bilans"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:paddingRight="@dimen/table_head_padding_right" />
+
+                        <TextView
+                            android:id="@+id/fluid_balance_balance_sonda_out"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:paddingRight="@dimen/table_head_padding_right"
+                            android:textStyle="bold" />
+
+                        <CheckBox
+                            android:id="@+id/details_sonda_out"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="true"
+                            android:text="@string/details" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/sonda_out_observations"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" >
+                    </LinearLayout>
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/separator"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dip"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerVertical="true"
+                    android:background="@color/separator_color"
+                    android:padding="@dimen/default_view_padding" />
+
+                <LinearLayout
+                    android:id="@+id/grouped_table_bolusy_panel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" >
+
+                        <TextView
+                            android:id="@+id/textView11"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/bolusy"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:paddingRight="@dimen/table_head_padding_right" />
+
+                        <TextView
+                            android:id="@+id/textView20"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/table_grouped_day_bilans"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:paddingRight="@dimen/table_head_padding_right" />
+
+                        <TextView
+                            android:id="@+id/fluid_balance_balance_bolusy"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:paddingRight="@dimen/table_head_padding_right"
+                            android:textStyle="bold" />
+
+                        <CheckBox
+                            android:id="@+id/details_bolusy"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="true"
+                            android:text="@string/details" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/bolusy_observations"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal" >
+                    </LinearLayout>
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/separator"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dip"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerVertical="true"
+                    android:background="@color/separator_color"
+                    android:padding="@dimen/default_view_padding" />
+
+                <LinearLayout
+                    android:id="@+id/grouped_table_wlewy_panel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" >
+
+                        <TextView
+                            android:id="@+id/textView12"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/wlewy"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:paddingRight="@dimen/table_head_padding_right" />
+
+                        <TextView
+                            android:id="@+id/textView21"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/table_grouped_day_bilans"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:paddingRight="@dimen/table_head_padding_right" />
+
+                        <TextView
+                            android:id="@+id/fluid_balance_balance_wlewy"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:paddingRight="@dimen/table_head_padding_right"
+                            android:textStyle="bold" />
+
+                        <CheckBox
+                            android:id="@+id/details_wlewy"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="true"
+                            android:text="@string/details" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/wlewy_observations"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal" >
+                    </LinearLayout>
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/separator"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dip"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerVertical="true"
+                    android:background="@color/separator_color"
+                    android:padding="@dimen/default_view_padding" />
+
+                <LinearLayout
+                    android:id="@+id/grouped_table_stolcewymioty_panel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" >
+
+                        <TextView
+                            android:id="@+id/textView14"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/stolce_wymioty"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:paddingRight="@dimen/table_head_padding_right" />
+
+                        <CheckBox
+                            android:id="@+id/details_stolecwymioty"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="true"
+                            android:text="@string/details" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/stolecwymioty_observations"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" >
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </eu.anmore.utils.CustomScrollView>
+    </LinearLayout>
+
+</LinearLayout>

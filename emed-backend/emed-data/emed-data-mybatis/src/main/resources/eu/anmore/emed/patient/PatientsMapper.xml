@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="eu.anmore.emed.patient.PatientsMapper">
+
+	<resultMap id="resultPatient" type="eu.anmore.emed.patient.PatientEntity" autoMapping="true">
+		<result column="patient_id" property="id" />
+		<result column="first_name" property="firstName" />
+	</resultMap>
+
+	<resultMap id="resultPatientWithAdmissions" type="eu.anmore.emed.patient.PatientEntity" autoMapping="true">
+		<id property="id" column="patient_id" />
+		<result column="first_name" property="firstName" />
+		<collection property="admissions" column="patient_id" select="queryAdmissions" />
+	</resultMap>
+
+	<resultMap id="resultAdmission" type="eu.anmore.emed.admission.AdmissionEntity" autoMapping="true">
+		<result column="admission_id" property="id" />
+		<result column="blood_type" property="bloodType" />
+	</resultMap>
+
+	<select id="queryPatients" parameterType="eu.anmore.emed.patient.PatientsQuery" resultMap="resultPatient">
+		<include refid="selectPatient" />
+	</select>
+
+	<select id="queryAdmittedPatients" parameterType="eu.anmore.emed.patient.PatientsQuery" resultMap="resultPatient">
+		<include refid="selectAdmittedPatient" />
+	</select>
+
+	<select id="queryAdmittedPatientWithAdmissions" parameterType="eu.anmore.emed.patient.PatientsQuery" resultMap="resultPatientWithAdmissions">
+		<include refid="selectAdmittedPatient" />
+	</select>
+
+	<select id="queryNotAdmittedPatients" parameterType="eu.anmore.emed.patient.PatientsQuery" resultMap="resultPatient">
+		<include refid="selectNotAdmittedPatient" />
+	</select>
+
+	<select id="queryPatientsWithAdmissions" parameterType="eu.anmore.emed.patient.PatientsQuery" resultMap="resultPatientWithAdmissions">
+		<include refid="selectPatient" />
+	</select>
+
+	<select id="queryAdmissions" parameterType="int" resultMap="resultAdmission">
+		<include refid="selectAdmission" />
+	</select>
+
+	<update id="edit" parameterType="eu.anmore.emed.patient.EditPatientCommand">
+		update patients p
+		<set>
+			<if test="diff.name.changed == true">first_name = #{diff.name.newValue},</if>
+			<if test="diff.surname.changed == true">surname = #{diff.surname.newValue},</if>
+			<if test="diff.pesel.changed == true">pesel = #{diff.pesel.newValue},</if>
+			<if test="diff.birthday.changed == true">birthday = #{diff.birthday.newValue},</if>
+			<if test="diff.sex.changed == true">sex = #{diff.sex.newValue},</if>
+		</set>
+		where patient_id = #{id}
+	</update>
+
+	<insert id="insert" parameterType="eu.anmore.emed.patient.PatientEntity" useGeneratedKeys="true" keyProperty="id"
+		keyColumn="patient_id">
+
+		insert into
+		patients (first_name, surname, pesel, birthday, sex)
+		values(#{firstName}, #{surname}, #{pesel},
+		#{birthday}, #{sex})
+
+	</insert>
+
+	<sql id="selectAdmission">
+		select
+		a.admission_id, a.patient_id as patientid, a.admission_date as
+		admissiondate, a.blood_type,
+		a.hearth_defect as hearthdefect,
+		a.weight,
+		a.body_area as bodyarea, a.height, a.death,
+		a.discharge_place as
+		dischargeplace,
+		a.discharge_date as dischargedate, a.admission_reason
+		as admissionreason from
+		admissions a
+		where
+		a.patient_id
+		= #{id}
+	</sql>
+
+	<sql id="selectPatient">
+		select p.patient_id, p.first_name, p.surname, p.pesel, p.birthday, p.sex from
+		patients p
+		<where>
+			<include refid="patientIdWhereSectionConditions" />
+		</where>
+
+		<include refid="patientQueryOrderBySection" />
+	</sql>
+
+	<sql id="selectAdmittedPatient">
+		select distinct p.patient_id, p.first_name, p.surname, p.pesel, p.birthday,
+		p.sex from
+		patients p JOIN admissions a ON
+		(p.patient_id = a.patient_id)
+		<where>
+			<include refid="patientIdWhereSectionConditions" />
+
+			AND a.discharge_date is null
+		</where>
+
+		<include refid="patientQueryOrderBySection" />
+	</sql>
+
+	<sql id="selectNotAdmittedPatient">
+		select p.patient_id, p.first_name, p.surname, p.pesel, p.birthday, p.sex from
+		patients p
+		<where>
+			<include refid="patientIdWhereSectionConditions" />
+		</where>
+
+		EXCEPT
+
+		<include refid="selectAdmittedPatient" />
+	</sql>
+
+	<sql id="patientQueryOrderBySection">
+		<if test="orderby != null">
+			order by
+			<foreach item="item" index="index" collection="orderby" separator=", ">
+				${item}
+			</foreach>
+		</if>
+	</sql>
+
+	<sql id="patientIdWhereSectionConditions">
+		<if test="id != null">
+			AND p.patient_id = #{id}
+		</if>
+		<if test="firstName != null">
+			AND p.first_name = #{firstName}
+		</if>
+		<if test="surname != null">
+			AND p.surname = #{surname}
+		</if>
+		<if test="pesel != null">
+			AND p.pesel = #{pesel}
+		</if>
+		<if test="birthday != null">
+			AND p.birthday = #{birthday}
+		</if>
+		<if test="sex != null">
+			AND p.sex = #{sex}
+		</if>
+	</sql>
+
+</mapper>

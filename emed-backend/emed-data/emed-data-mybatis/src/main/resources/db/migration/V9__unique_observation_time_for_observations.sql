@@ -1,0 +1,1 @@
+-- CREATE UNIQUE INDEX uq_observations_observation_time ON observations (patient_id, type, date);

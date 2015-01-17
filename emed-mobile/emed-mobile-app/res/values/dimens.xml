@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- to remove -->
+    <dimen name="patientList_patientListListView_row_displayNameSize">24dp</dimen>
+    <!-- to remove -->
+    <dimen name="patientList_patientListListView_width">400dp</dimen>
+    
+    <dimen name="default_view_padding">10dp</dimen>
+    <dimen name="add_observations_width">550dp</dimen>
+    <dimen name="table_head_padding_right">10dp</dimen>
+</resources>

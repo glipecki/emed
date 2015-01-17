@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="error_message_text_color">#DF0101</color>
+    <color name="separator_color">#6B6B6B</color>
+    <color name="balance_head_bg">#585858</color>
+</resources>

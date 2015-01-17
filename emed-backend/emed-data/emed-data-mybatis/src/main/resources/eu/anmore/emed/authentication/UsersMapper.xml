@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="eu.anmore.emed.authentication.UsersMapper">
+
+	<resultMap id="resultUser" type="eu.anmore.emed.authentication.UserEntity"
+		autoMapping="true">
+		<result column="first_name" property="firstName" />
+		<result column="user_id" property="id" />
+		<collection property="permissions" column="user_id"
+			select="queryUserPermissions" />
+	</resultMap>
+
+	<select id="queryUsers" parameterType="eu.anmore.emed.authentication.UsersQuery"
+		resultMap="resultUser">
+		select u.user_id, u.first_name, u.surname, u.username, u.password as passwordHash, u.salt, u.active
+		from users u
+		<where>
+			<if test="id != null">
+				AND u.user_id = #{id}
+			</if>
+			<if test="username != null">
+				AND u.username = #{username}
+			</if>
+			<if test="password != null">
+				AND u.password = #{password}
+			</if>
+		</where>
+	</select>
+
+	<select id="queryUserPermissions" parameterType="int"
+		resultType="string">
+		select p.permission
+		from user_permission up join permissions
+		p on up.permission_id = p.permission_id
+		where up.user_id = #{id}
+	</select>
+	
+	<select id="getUserId" parameterType="String"
+		resultType="int">
+		select user_id
+		from users where username = #{username}
+	</select>
+	
+	<select id="getPermissionId" parameterType="String"
+		resultType="int">
+		select permission_id
+		from permissions where permission = #{permission}
+	</select>
+	
+	<insert id="insert" parameterType="eu.anmore.emed.authentication.UserEntity" useGeneratedKeys="true" keyProperty="id"
+		keyColumn="user_id">
+
+		insert into
+		users (first_name, surname, username, password, salt, active)
+		values(#{firstName}, #{surname}, #{username},
+		#{passwordHash}, #{salt}, #{active})
+	</insert>
+
+	<insert id="addPermission" parameterType="eu.anmore.emed.authentication.UserPermissionEntity">
+		insert into
+		user_permission (user_id, permission_id)
+		values(#{userId}, #{permissionId})
+	</insert>
+	
+	<delete id="removePermission" parameterType="eu.anmore.emed.authentication.UserPermissionEntity">
+		delete from user_permission where user_id = #{userId} and permission_id = #{permissionId}
+	</delete>
+	
+	<update id="edit" parameterType="eu.anmore.emed.authentication.UserDiff">
+		update users
+		<set>
+			<if test="firstName.changed == true">first_name = #{firstName.newValue},</if>
+			<if test="surname.changed == true">surname = #{surname.newValue},</if>
+			<if test="salt.changed == true">salt = #{salt.newValue},</if>
+			<if test="password.changed == true">password = #{passwordHash.newValue},</if>
+		</set>
+		where username = #{username}
+	</update>
+	
+	<update id="blockUser" parameterType="String">
+		update users
+		<set>
+			active = false
+		</set>
+		where username = #{username}
+	</update>
+	
+	<update id="unblockUser" parameterType="String">
+		update users
+		<set>
+			active = true
+		</set>
+		where username = #{username}
+	</update>
+</mapper>

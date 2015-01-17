@@ -1,0 +1,71 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<artifactId>emed-mobile-tests</artifactId>
+
+	<parent>
+		<groupId>eu.anmore.emed</groupId>
+		<artifactId>emed-mobile</artifactId>
+		<version>0.7.5-SNAPSHOT</version>
+	</parent>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.google.android</groupId>
+			<artifactId>android</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-all</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.easytesting</groupId>
+			<artifactId>fest-assert</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.pivotallabs</groupId>
+			<artifactId>robolectric</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>eu.anmore.emed</groupId>
+			<artifactId>emed-mobile-app</artifactId>
+			<version>${emed-mobile.version}</version>
+			<type>jar</type>
+		</dependency>
+		<dependency>
+			<groupId>eu.anmore.mvpdroid</groupId>
+			<artifactId>mvpdroid</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-core-asl</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.android</groupId>
+			<artifactId>spring-android-rest-template</artifactId>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

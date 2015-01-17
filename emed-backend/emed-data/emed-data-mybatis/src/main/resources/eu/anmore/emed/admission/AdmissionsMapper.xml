@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="eu.anmore.emed.admission.AdmissionsMapper">
+
+	<resultMap id="resultAdmission" type="eu.anmore.emed.admission.AdmissionEntity" autoMapping="true">
+		<result column="admission_id" property="id" />
+		<result column="blood_type" property="bloodType" />
+	</resultMap>
+
+	<select id="getAdmissionById" parameterType="int" resultMap="resultAdmission">
+		select
+		a.admission_id, a.patient_id as patientid,
+		a.admission_date as
+		admissiondate, a.blood_type,
+		a.hearth_defect as hearthdefect,
+		a.weight,
+		a.body_area as bodyarea,
+		a.height, a.death,
+		a.discharge_place as
+		dischargeplace,
+		a.discharge_date as dischargedate, a.admission_reason
+		as
+		admissionreason from
+		admissions a
+		where a.admission_id = #{id}
+	</select>
+
+	<insert id="admitPatient" parameterType="eu.anmore.emed.admission.AdmissionEntity" useGeneratedKeys="true"
+		keyProperty="id" keyColumn="admission_id">
+
+		insert into
+		admissions (patient_id, admission_date, blood_type, hearth_defect, weight,
+		body_area, height, death, discharge_place, discharge_date,
+		admission_reason)
+		values(#{patientId}, #{admissionDate},
+		#{bloodType},
+		#{hearthDefect},
+		#{weight}, #{bodyArea}, #{height}, #{death},
+		#{dischargePlace},
+		#{dischargeDate},
+		#{admissionReason})
+
+	</insert>
+
+	<update id="edit" parameterType="eu.anmore.emed.admission.EditAdmissionCommand">
+		update admissions a
+		<set>
+			<if test="diff.admissionDate.changed == true">admission_date = #{diff.admissionDate.newValue},</if>
+			<if test="diff.blood.changed == true">blood_type = #{diff.blood.newValue},</if>
+			<if test="diff.hearthDefect.changed == true">hearth_defect = #{diff.hearthDefect.newValue},</if>
+			<if test="diff.weight.changed == true">weight = #{diff.weight.newValue},</if>
+			<if test="diff.bodyArea.changed == true">body_area = #{diff.bodyArea.newValue},</if>
+			<if test="diff.height.changed == true">height = #{diff.height.newValue},</if>
+			<if test="diff.death.changed == true">death = #{diff.death.newValue},</if>
+			<if test="diff.dischargePlace.changed == true">discharge_place = #{diff.dischargePlace.newValue},</if>
+			<if test="diff.dischargeDate.changed == true">discharge_date = #{diff.dischargeDate.newValue},</if>
+			<if test="diff.admissionReason.changed == true">admission_reason = #{diff.admissionReason.newValue}</if>
+		</set>
+		where admission_id = #{id}
+	</update>
+
+</mapper>

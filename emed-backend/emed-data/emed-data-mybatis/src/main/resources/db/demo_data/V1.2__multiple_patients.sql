@@ -1,0 +1,21 @@
+insert into patients (patient_id, first_name, surname, pesel, birthday, sex) values (4, 'Jan', 'Przylazł', '90031004513', '1990-03-10', 'MAN');
+insert into patients (patient_id, first_name, surname, pesel, birthday, sex) values (5, 'Maria', 'Poszła', '88072306830', '1988-07-23', 'WOMAN');
+insert into patients (patient_id, first_name, surname, pesel, birthday, sex) values (6, 'Krzysztof', 'Ibisz', '87110104513', '1987-11-04', 'MAN');
+insert into patients (patient_id, first_name, surname, pesel, birthday, sex) values (7, 'Kacper', 'Piszpan', '86121104513', '1986-12-11', 'MAN');
+insert into patients (patient_id, first_name, surname, pesel, birthday, sex) values (8, 'Andrzej', 'Lubito', '85102004513', '1985-10-20', 'MAN');
+insert into patients (patient_id, first_name, surname, pesel, birthday, sex) values (9, 'Janek', 'Kowalski', '84061904513', '1984-06-19', 'MAN');
+insert into patients (patient_id, first_name, surname, pesel, birthday, sex) values (10, 'Pan', 'Zdzisław', '84081804513', '1984-08-18', 'MAN');
+insert into patients (patient_id, first_name, surname, pesel, birthday, sex) values (11, 'Pani', 'Jola', '89031504513', '1989-03-15', 'WOMAN');
+insert into patients (patient_id, first_name, surname, pesel, birthday, sex) values (12, 'Krystyna', 'Z gazowni', '96020204513', '1996-02-02', 'WOMAN');
+insert into patients (patient_id, first_name, surname, pesel, birthday, sex) values (13, 'Idź', 'Pan', '98010104513', '1998-01-01', 'MAN');
+
+insert into admissions (patient_id) values (4);
+insert into admissions (patient_id) values (5);
+insert into admissions (patient_id) values (6);
+insert into admissions (patient_id) values (7);
+insert into admissions (patient_id) values (8);
+insert into admissions (patient_id) values (9);
+insert into admissions (patient_id) values (10);
+insert into admissions (patient_id) values (11);
+insert into admissions (patient_id) values (12);
+insert into admissions (patient_id) values (13);

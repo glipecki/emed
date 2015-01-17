@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Default emed backend application configuration -->
+<emed-configuration>
+
+	<!-- Database configuration -->
+	<!-- By default application will use in memory H2 demo database -->
+	<!-- Test H2 database in file: jdbc:h2:file:emed_demo.h2.db;DB_CLOSE_DELAY=-1 -->
+	<database>
+		<!-- Run application in demo mode, will fill database with test data -->
+		<!-- Runs in demo mode if value is equal to "demo", production mode in all other cases (especially if null) -->
+		<mode></mode>
+		<!-- Database JDBC driver -->
+		<driver>org.postgresql.Driver</driver>
+		<!-- Database connection url -->
+		<url>jdbc:postgresql://localhost:5432/emed1</url>
+		<!-- Database connection username -->
+		<username>emed1</username>
+		<!-- Database connection password for username -->
+		<password>q1w2e3r4</password>
+	</database>
+
+</emed-configuration>
